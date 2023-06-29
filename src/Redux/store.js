@@ -5,12 +5,10 @@ import tablesReducer from './tablesRedux';
 import statusReducer from './statusRedux';
 
 
-const subreducers = {
-    tables: tablesReducer,
-    tableStatus: statusReducer,
-}
-
-const reducer = combineReducers(subreducers);
+const reducer = combineReducers({
+  tables: tablesReducer,
+  tableStatus: statusReducer,
+});
 
 const store = createStore(
   reducer,
