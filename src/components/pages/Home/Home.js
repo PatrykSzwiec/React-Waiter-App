@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchTables } from '../../../Redux/tablesRedux';
 import { useSelector } from "react-redux";
+import { fetchTables } from '../../../Redux/tablesRedux';
 import { getAllTables } from "../../../Redux/tablesRedux";
 import SingleTable from "../../features/SingleTable";
 import { Link } from "react-router-dom";
-import { Button, Row, Col} from "react-bootstrap";
+import { Button, Row, Col, Spinner} from "react-bootstrap";
+import Loader from '../../features/Loader/Loader';
 
 const Home = () => {
 
   const dispatch = useDispatch();
+  const tables = useSelector(getAllTables);
+  const isLoading = useSelector((state) => state.loading);
 
   useEffect(() => {
     dispatch(fetchTables());
   }, [dispatch]);
-
-  const tables = useSelector(getAllTables);
 
   return (
     <>
@@ -25,7 +26,11 @@ const Home = () => {
           <Button className='mb-3' variant='outline-primary' as={Link} to={'/table/add'}>Add table</Button>
         </Col>
       </Row>
-      {tables.map((table) => <SingleTable key={table.id} {...table} /> )}
+      {isLoading ? (
+        <Loader />
+    ) : (
+      tables.map((table) => <SingleTable key={table.id} {...table} />)
+    )}
     </>
   );
 };
