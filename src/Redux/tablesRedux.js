@@ -10,11 +10,21 @@ const createActionName = actionName => `app/tables/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 const EDIT_TABLE = createActionName('EDIT_TABLE');
 const ADD_TABLE = createActionName('ADD_TABLE');
+const DELETE_TABLE = createActionName('DELETE_TABLE');
 
 // action creators
 export const updateTables = payload => ({ type: UPDATE_TABLES, payload });
 export const editTable = (payload) => ({ type: EDIT_TABLE, payload });
 export const addTable = (tableData) => ({ type: ADD_TABLE, payload: tableData });
+export const deleteTable = (id) => ({ type: DELETE_TABLE, payload: id });
+
+// thunk for deleting the table
+export const deleteTableRequest = (id) => {
+  return (dispatch) => {
+    fetch(API_URL + '/tables/' + id, { method: 'DELETE' })
+      .then(() => dispatch(deleteTable(id)));
+  };
+};
 
 export const fetchTables = () => {
   return (dispatch) => {
@@ -99,6 +109,9 @@ const tablesReducer = (statePart = [], action) => {
 
     case ADD_TABLE:
       return [...statePart, action.payload];
+
+    case DELETE_TABLE:
+      return statePart.filter(table => table.id !== action.payload);
 
     default:
       return statePart;

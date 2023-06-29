@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import { fetchTables } from '../../../Redux/tablesRedux';
 import { getAllTables } from "../../../Redux/tablesRedux";
-import SingleTable from "../../features/SingleTable";
+import SingleTable from "../../features/SingleTable/SingleTable";
 import { Link } from "react-router-dom";
-import { Button, Row, Col, Spinner} from "react-bootstrap";
+import { Button, Row, Col} from "react-bootstrap";
 import Loader from '../../features/Loader/Loader';
 
 const Home = () => {
