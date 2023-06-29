@@ -1,0 +1,33 @@
+{
+  "tables": [
+    {
+      "status": "Busy",
+      "peopleAmount": "4",
+      "maxPeopleAmount": "4",
+      "payment": "52",
+      "id": "1"
+    },
+    {
+      "status": "Reserved",
+      "peopleAmount": "2",
+      "maxPeopleAmount": 3,
+      "payment": "20",
+      "id": "2"
+    },
+    {
+      "status": "Busy",
+      "peopleAmount": 2,
+      "maxPeopleAmount": "5",
+      "payment": "41",
+      "id": "3"
+    },
+    {
+      "id": "4",
+      "status": "Cleaning",
+      "peopleAmount": 0,
+      "maxPeopleAmount": 3,
+      "payment": 0
+    }
+  ]
+}
+
