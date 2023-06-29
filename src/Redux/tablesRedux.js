@@ -1,6 +1,6 @@
 import { API_URL } from "../config";
 //selectors
-export const getAllTables = ({ tables }) => tables;
+export const getAllTables = (state) => state.tables;
 export const getTableById = ({ tables }, id) => tables.find((table) => table.id === id);
 
 // actions
@@ -16,8 +16,10 @@ export const fetchTables = () => {
   return (dispatch) => {
       fetch(API_URL + '/tables')
       .then(res => res.json())
-      .then(tables => dispatch(updateTables(tables)));
-  }
+      .then(tables => {
+        dispatch(updateTables(tables));
+  });
+}
 };
 
 export const editTableRequest = (updatedTable) => {

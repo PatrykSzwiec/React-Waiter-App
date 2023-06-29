@@ -8,11 +8,12 @@ const Table = () => {
 
     const { id } = useParams();
     const tableData = useSelector((state) => getTableById(state, id));
+    //console.log(tableData,"TableData");
 
-    const [status, setStatus] = useState();
-    const [peopleAmount, setPeopleAmount] = useState();
-    const [maxPeopleAmount, setMaxPeopleAmount] = useState();
-    const [bill, setBill] = useState();
+    const [status, setStatus] = useState("Free");
+    const [peopleAmount, setPeopleAmount] = useState(0);
+    const [maxPeopleAmount, setMaxPeopleAmount] = useState(1);
+    const [bill, setBill] = useState(0);
 
     useEffect(() => {
       if (tableData) {
@@ -30,8 +31,24 @@ const Table = () => {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      dispatch(editTableRequest({ status, peopleAmount, maxPeopleAmount, bill, id }));
+      dispatch(editTableRequest({ id, status, peopleAmount, maxPeopleAmount, bill }));
       navigate('/');
+    };
+
+    // Check if the entered value is valid number, not negative and less than or equal to maxPeopleAmount
+    const handlePeopleAmountChange = (e) => {
+      const value = parseInt(e.target.value);
+      if (!isNaN(value) && value >= 0 && value <= maxPeopleAmount) {
+        setPeopleAmount(value);
+      }
+    };
+
+    // Check if entered value is valid number, not less then 1 and greater than or equal to peopleAmount
+    const handleMaxPeopleAmountChange = (e) => {
+      const value = parseInt(e.target.value);
+      if (!isNaN(value) && value >= 1 && value >= peopleAmount) {
+        setMaxPeopleAmount(value);
+      }
     };
 
     return (
@@ -56,11 +73,15 @@ const Table = () => {
                 <strong>People:</strong>
               </Form.Label>
               <Col sm={1}>
-                <Form.Control type='number' value={peopleAmount} onChange={(e) => setPeopleAmount(e.target.value)} />
+                <Form.Control type='number'
+                value={peopleAmount}
+                onChange={handlePeopleAmountChange} />
               </Col>
               /
               <Col sm={1}>
-                <Form.Control type='number' value={maxPeopleAmount} onChange={(e) => setMaxPeopleAmount(e.target.value)} />
+                <Form.Control type='number'
+                value={maxPeopleAmount}
+                onChange={handleMaxPeopleAmountChange} />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className='mb-3'>

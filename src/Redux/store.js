@@ -4,7 +4,6 @@ import initialState from './initialState';
 import tablesReducer from './tablesRedux';
 import statusReducer from './statusRedux';
 
-
 const reducer = combineReducers({
   tables: tablesReducer,
   tableStatus: statusReducer,
