@@ -18,6 +18,8 @@ const Home = () => {
     dispatch(fetchTables());
   }, [dispatch]);
 
+  const sortedTables = tables.sort((a, b) => a.id - b.id);
+
   return (
     <>
       <Row>
@@ -29,7 +31,7 @@ const Home = () => {
       {isLoading ? (
         <Loader />
     ) : (
-      tables.map((table) => <SingleTable key={table.id} {...table} />)
+      sortedTables.map((table) => <SingleTable key={table.id} {...table} />)
     )}
     </>
   );
