@@ -18,7 +18,7 @@ const Home = () => {
     dispatch(fetchTables());
   }, [dispatch]);
 
-  const sortedTables = tables.sort((a, b) => a.id - b.id);
+  const sortedTables = tables.sort((a, b) => a.tableNumber - b.tableNumber);
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { API_URL } from "../config";
 import { setLoading } from "./loadingRedux";
+import shortid from "shortid";
 
 //selectors
 export const getAllTables = (state) => state.tables;
@@ -22,7 +23,7 @@ export const deleteTable = (id) => ({ type: DELETE_TABLE, payload: id });
 export const deleteTableRequest = (id) => {
   return (dispatch) => {
     fetch(API_URL + '/tables/' + id, { method: 'DELETE' })
-      .then(() => dispatch(deleteTable(id)));
+      .then(() => dispatch(deleteTable(shortid)));
   };
 };
 
@@ -44,14 +45,10 @@ export const fetchTables = () => {
 };
 
 export const addTableRequest = (tableData) => {
-  return (dispatch, getState) => {
-    const state = getState();
-    const existingTableIds = state.tables.map((table) => parseInt(table.id, 10));
-    const nextTableId = findNextTableId(existingTableIds);
-
+  return (dispatch) => {
     const newTableData = {
       ...tableData,
-      id: nextTableId.toString(),
+      id: shortid.generate(),
     };
 
     const options = {
@@ -65,22 +62,6 @@ export const addTableRequest = (tableData) => {
     fetch(API_URL + "/tables", options)
       .then(() => dispatch(addTable(newTableData)));
   };
-};
-
-// Helper function to find the next available table ID
-const findNextTableId = (existingIds) => {
-  const sortedIds = existingIds.sort((a, b) => a - b);
-  let nextId = 1;
-
-  for (let i = 0; i < sortedIds.length; i++) {
-    if (nextId !== sortedIds[i]) {
-      break;
-    }
-
-    nextId++;
-  }
-
-  return nextId;
 };
 
 export const editTableRequest = (updatedTable) => {
@@ -105,7 +86,8 @@ const tablesReducer = (statePart = [], action) => {
       return [...action.payload] ;
 
     case EDIT_TABLE:
-      return statePart.map(table => (table.id === action.payload.id ? { ...table, ...action.payload } : table));
+      return statePart.map((table) =>
+        (table.id === action.payload.id ? { ...table, ...action.payload } : table));
 
     case ADD_TABLE:
       return [...statePart, action.payload];

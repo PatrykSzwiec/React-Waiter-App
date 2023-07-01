@@ -1,6 +1,6 @@
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTableRequest } from "../../../Redux/tablesRedux";
 import { useState } from "react";
 
@@ -8,19 +8,32 @@ const AddTable = () => {
   const [status, setStatus] = useState("Free");
   const [peopleAmount, setPeopleAmount] = useState(0);
   const [maxPeopleAmount, setMaxPeopleAmount] = useState(1);
-  const [bill, setBill] = useState(0);
+  const [tableNumber, setTableNumber] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const tables = useSelector((state) => state.tables);
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Check if table number already exists
+    const tableNumberExists = tables.some(
+      (table) => table.tableNumber === tableNumber
+  );
+
+  if (tableNumberExists) {
+    alert("This table number already exists");
+    return;
+  }
     dispatch(
       addTableRequest({
+        tableNumber,
         status,
         peopleAmount,
         maxPeopleAmount,
-        bill,
       })
     );
     navigate("/");
@@ -44,15 +57,13 @@ const AddTable = () => {
     <>
       <h2>Add Table</h2>
       <Form onSubmit={handleSubmit}>
+
         <Form.Group as={Row} className="mb-3">
           <Form.Label as="legend" column sm={1}>
             <strong>Status:</strong>
           </Form.Label>
           <Col sm={3}>
-            <Form.Select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
+            <Form.Select value={status} onChange={(e) => setStatus(e.target.value)}>
               <option value="Busy">Busy</option>
               <option value="Free">Free</option>
               <option value="Cleaning">Cleaning</option>
@@ -60,6 +71,22 @@ const AddTable = () => {
             </Form.Select>
           </Col>
         </Form.Group>
+
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column sm={2}>
+            <strong>Table Number:</strong>
+          </Form.Label>
+          <Col sm={2}>
+            <Form.Control
+              type="text"
+              value={tableNumber}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                setTableNumber(value);}}
+            />
+          </Col>
+        </Form.Group>
+
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm={1}>
             <strong>People:</strong>
@@ -80,23 +107,7 @@ const AddTable = () => {
             />
           </Col>
         </Form.Group>
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm={1}>
-            <strong>Bill:</strong>
-          </Form.Label>
-          <Col sm={2}>
-            <Row>
-              <Col sm={1}>$</Col>
-              <Col sm={6}>
-                <Form.Control
-                  type="number"
-                  value={bill}
-                  onChange={(e) => setBill(e.target.value)}
-                />
-              </Col>
-            </Row>
-          </Col>
-        </Form.Group>
+
         <Form.Group as={Row} className="mb-2">
           <Col>
             <Button type="submit" variant="primary">

@@ -6,7 +6,7 @@ import  styles from "./SingleTable.module.scss";
 import React, { useState } from 'react';
 
 
-const SingleTable = ({ id, status, maxPeopleAmount }) => {
+const SingleTable = ({ id, status, maxPeopleAmount, tableNumber }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
@@ -28,7 +28,7 @@ const SingleTable = ({ id, status, maxPeopleAmount }) => {
         <Card.Body>
           <Row>
             <Col className="col-2">
-              <Card.Title as='h3'>Table {id}</Card.Title>
+              <Card.Title as='h3'>Table {tableNumber}</Card.Title>
             </Col>
             <Col className="col-3 d-flex align-items-center">
               <Card.Text as='p'><strong>Status: </strong>{status}</Card.Text>
