@@ -25,7 +25,7 @@ const Table = () => {
         setMaxPeopleAmount(tableData.maxPeopleAmount);
         setBill(tableData.bill);
       }
-    }, [tableData,]);
+    }, [tableData]);
 
     const dispatch = useDispatch();
     useEffect(() => dispatch(fetchTables()), [dispatch]);
@@ -109,6 +109,7 @@ const Table = () => {
               <Form.Control
                 type="text"
                 value={tableNumber}
+                required
                 onChange={(e) => {
                   const value = e.target.value.replace(/\D/g, "");
                   setTableNumber(value);}}

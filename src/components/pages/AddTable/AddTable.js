@@ -80,6 +80,7 @@ const AddTable = () => {
             <Form.Control
               type="text"
               value={tableNumber}
+              required
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, "");
                 setTableNumber(value);}}

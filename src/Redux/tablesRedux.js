@@ -23,7 +23,7 @@ export const deleteTable = (id) => ({ type: DELETE_TABLE, payload: id });
 export const deleteTableRequest = (id) => {
   return (dispatch) => {
     fetch(API_URL + '/tables/' + id, { method: 'DELETE' })
-      .then(() => dispatch(deleteTable(shortid)));
+      .then(() => dispatch(deleteTable(id)));
   };
 };
 
