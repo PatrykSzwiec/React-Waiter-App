@@ -67,12 +67,13 @@ export const addTableRequest = (tableData) => {
 export const editTableRequest = (updatedTable) => {
   return (dispatch, getState) => {
     const { tables } = getState();
-    const existingTable = tables.find((table) => table.id === updatedTable.id);
+    const existingTable = tables.find((table) => table.id === updatedTable.id && table.status === "Busy");
 
-    if (existingTable && existingTable.status === "Busy" && updatedTable.status !== "Busy") {
+
+    if (existingTable && updatedTable.status !== "Busy") {
       updatedTable.bill = 0;
     }
-    
+
     const options = {
       method: 'PUT',
       headers: {
