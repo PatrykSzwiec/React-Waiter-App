@@ -4,16 +4,16 @@
       "id": "lg-qaWhEC",
       "tableNumber": "1",
       "status": "Busy",
-      "peopleAmount": 2,
+      "peopleAmount": 3,
       "maxPeopleAmount": 10,
-      "bill": 4
+      "bill": 10
     },
     {
+      "id": "oME7tiDNh",
       "tableNumber": "2",
       "status": "Cleaning",
-      "peopleAmount": 0,
-      "maxPeopleAmount": 4,
-      "id": "oME7tiDNh"
+      "peopleAmount": 4,
+      "maxPeopleAmount": 4
     },
     {
       "id": "UG6cwE_Ym",
@@ -35,6 +35,22 @@
       "peopleAmount": 0,
       "maxPeopleAmount": 1,
       "id": "-48ZL2xVV"
+    },
+    {
+      "id": "EE9TlyBfV",
+      "tableNumber": "6",
+      "status": "Busy",
+      "peopleAmount": 0,
+      "maxPeopleAmount": 1,
+      "bill": 8
+    },
+    {
+      "tableNumber": "7",
+      "status": "Free",
+      "peopleAmount": 0,
+      "maxPeopleAmount": 1,
+      "bill": 0,
+      "id": "t3-LKRvyU"
     }
   ]
 }

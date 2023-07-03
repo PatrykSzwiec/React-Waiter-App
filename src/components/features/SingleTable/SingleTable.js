@@ -6,7 +6,7 @@ import  styles from "./SingleTable.module.scss";
 import React, { useState } from 'react';
 
 
-const SingleTable = ({ id, status, maxPeopleAmount, tableNumber }) => {
+const SingleTable = ({ id, status, peopleAmount, maxPeopleAmount, tableNumber, bill }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
@@ -27,16 +27,27 @@ const SingleTable = ({ id, status, maxPeopleAmount, tableNumber }) => {
 			<Card>
         <Card.Body>
           <Row>
-            <Col className="col-2">
+            <Col xs={6} md={2}>
               <Card.Title as='h3'>Table {tableNumber}</Card.Title>
             </Col>
-            <Col className="col-3 d-flex align-items-center">
+
+            <Col xs={6} md={2} className="d-flex align-items-center">
               <Card.Text as='p'><strong>Status: </strong>{status}</Card.Text>
             </Col>
-            <Col className="col-3 d-flex align-items-center">
-              <Card.Text as='p'><strong>Max People Amount: </strong>{maxPeopleAmount}</Card.Text>
+
+            <Col xs={6} md={3} className="d-flex align-items-center">
+              <Card.Text as='p'><strong>People Amount: </strong>{peopleAmount}/{maxPeopleAmount}</Card.Text>
             </Col>
-            <Col className="col-4 d-flex justify-content-end">
+
+            {status === "Busy" && (
+              <Col xs={6} md={2} className="d-flex align-items-center">
+                <Card.Text as='p'><strong>Bill:</strong>${bill}</Card.Text>
+              </Col>
+            )}
+
+            <Col xs={6}
+              md={status === "Busy" ? 3 : 5}
+              className="d-flex justify-content-end">
               <div className={styles.button_container}>
                 <Link to={"/table/" + id}>
                   <Button variant="primary">Show more</Button>

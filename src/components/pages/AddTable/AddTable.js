@@ -34,6 +34,7 @@ const AddTable = () => {
         status,
         peopleAmount,
         maxPeopleAmount,
+        bill: 0,
       })
     );
     navigate("/");

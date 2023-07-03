@@ -35,15 +35,24 @@ const Table = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       // Check if table number already exists (excluding the current table being edited)
-    const tableNumberExists = tables.some(
-      (table) => table.tableNumber === tableNumber && table.id !== id
-    );
+      const tableNumberExists = tables.some(
+        (table) => table.tableNumber === tableNumber && table.id !== id
+      );
 
-    if (tableNumberExists) {
-      alert("This table number already exists");
-      return;
-    }
-      dispatch(editTableRequest({ id, tableNumber, status, peopleAmount, maxPeopleAmount, bill }));
+      if (tableNumberExists) {
+        alert("This table number already exists");
+        return;
+      }
+
+      dispatch(
+        editTableRequest({
+          id,
+          tableNumber,
+          status,
+          peopleAmount,
+          maxPeopleAmount,
+          bill })
+      );
       navigate('/');
     };
 
@@ -62,6 +71,7 @@ const Table = () => {
         setMaxPeopleAmount(value);
       }
     };
+
     // Check if entered value is valid number and not less then 0 .
     const handleBillChange = (e) => {
       const value = parseInt(e.target.value);
@@ -71,7 +81,7 @@ const Table = () => {
         setBill(0);
       }
     };
-
+    // Render the bill input field if status equal "Busy"
     const renderBillField = () => {
       if (status === "Busy") {
         return (
