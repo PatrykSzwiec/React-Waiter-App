@@ -1,6 +1,5 @@
 const initialState = {
   tables: [],
-  status: [],
   loading: false,
 };
 
